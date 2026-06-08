@@ -59,6 +59,77 @@ def add_expense():
 
     print("Expense added successfully!")
 
+
+def view_expenses():
+
+    expenses = load_expenses()
+
+    if len(expenses) == 0:
+        print("No expenses found.")
+        return
+
+    total = 0
+
+    print("\n" + "=" * 60)
+    print(f"{'Date':<15}{'Category':<15}{'Amount':<10}Note")
+    print("=" * 60)
+
+    for expense in expenses:
+
+        print(
+            f"{expense['date']:<15}"
+            f"{expense['category']:<15}"
+            f"{expense['amount']:<10}"
+            f"{expense['note']}"
+        )
+
+        total += expense["amount"]
+
+    print("=" * 60)
+    print(f"Total: {total}")
+
+
+def filter_expenses():
+
+    expenses = load_expenses()
+
+    if len(expenses) == 0:
+        print("No expenses found.")
+        return
+
+    category = input(
+        "Enter category (Food/Transport/Entertainment/Other): "
+    ).strip()
+
+    subtotal = 0
+    found = False
+
+    print("\n" + "=" * 60)
+    print(f"{'Date':<15}{'Category':<15}{'Amount':<10}Note")
+    print("=" * 60)
+
+    for expense in expenses:
+
+        if expense["category"].lower() == category.lower():
+
+            found = True
+
+            print(
+                f"{expense['date']:<15}"
+                f"{expense['category']:<15}"
+                f"{expense['amount']:<10}"
+                f"{expense['note']}"
+            )
+
+            subtotal += expense["amount"]
+
+    if not found:
+        print("No expenses found in this category.")
+        return
+
+    print("=" * 60)
+    print(f"{category} Total: {subtotal}")
+
 def main():
     
     while True:
@@ -70,6 +141,15 @@ def main():
 
         choice = input("Choose an option: ")
 
+        if choice == "1":
+            add_expense()
+            
+        elif choice == "2":
+            view_expenses()
+            
+        elif choice == "3":
+            filter_expenses()
+            
         if choice == "4":
             break
 
