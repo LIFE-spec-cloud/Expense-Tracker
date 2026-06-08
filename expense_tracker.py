@@ -151,6 +151,7 @@ def main():
             filter_expenses()
             
         if choice == "4":
+            print("GoodBye!")
             break
 
 if __name__ == "__main__":
